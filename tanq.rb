@@ -2,6 +2,7 @@
 
 require "bundler/setup"
 require "gaminator"
+require 'pry'
 
 
 class Configuration
@@ -39,6 +40,10 @@ class Tank
     @direction = direction
     @color = Configuration::COLORS[@tank_number-1]
   end
+
+  def char
+    'o'
+  end
   
   def fire
   
@@ -57,15 +62,17 @@ end
 class TankGame
   attr_reader :width, :height
   def initialize(width, height)
-    @tanks = []
-    @tanks << Tank.new(0, 0, Direction::SOUTH)
-    @tanks << Tank.new(width-1, height-2, Direction::NORTH)
-    @tanks << Tank.new(0, height-2, Direction::NORTH)
-    @tanks << Tank.new(width-1, 0, Direction::SOUTH)
-    @tanks = @tanks[ 0, Configuration::PLAYERS ]
+    #@tanks = []
+    #@tanks << Tank.new(0, 0, Direction::SOUTH)
+    #@tanks << Tank.new(width-1, height-2, Direction::NORTH)
+    #@tanks << Tank.new(0, height-2, Direction::NORTH)
+    #@tanks << Tank.new(width-1, 0, Direction::SOUTH)
+    #@tanks = @tanks[ 0, Configuration::PLAYERS ]
+    @map = Map.new
+    @map.load_map File.join(File.dirname(__FILE__), "l2.txt")
+    @tanks = @map.types['Tank']
     @bullets = []
   end
-
 
   def exit_message
   end
@@ -74,7 +81,7 @@ class TankGame
   end
   
   def objects
-    @tanks + @bullets
+    @map.objects + @bullets
   end
   
   def each
@@ -121,7 +128,74 @@ class TankGame
 	def sleep_time
     0.05
 	end
+
+  class Item < Struct.new(:x, :y)
+    def blocking?
+      false
+    end
+  end
+
+  class Wall < Item
+    def char
+      '#'
+    end
+
+    def blocking?
+      true
+    end
+  end
+
+  class Map < Hash
+    attr_accessor :types
+
+    OBJECT_MAPPING = {
+      '#' => Wall,
+      "R" => Tank
+    }
+
+    def get(x, y)
+      self[x][y] if self[x]
+    end
+
+    def set(x, y, value)
+      self[x] = {} unless self[x]
+      self[x][y] = value
+    end
+
+    def load_map(file)
+      @objects = []
+      @types = {}
+      file = File.open(file)
+      y = 0
+      file.each_line do |line|
+        x = 0
+        line.chomp.each_char do |char|
+          self.resolve_object(char, x, y)
+          x += 1
+        end
+        y += 1
+      end
+    end
+
+    def resolve_object(char, x, y)
+      if klass = OBJECT_MAPPING[char]
+        instance = klass.new(x, y)
+        self.set(x, y, instance)
+        @objects.push instance
+        name = klass.name.split('::').last
+        @types[name] ||= []
+        @types[name].push(instance)
+      end
+    end
+
+    def objects
+      @objects
+    end
+
+  end
+
 end
+
 
 
 Gaminator::Runner.new(TankGame).run
