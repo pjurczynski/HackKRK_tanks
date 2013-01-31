@@ -54,8 +54,12 @@ class Tank
     @@tank_number += 1
     @tank_number = @@tank_number
     @direction = direction
-    @temperature = 5
+    @temperature = 0
     @color = Configuration::COLORS[@tank_number-1]
+  end
+
+  def self.set_game game
+    @@game = game
   end
 
   def char
@@ -64,7 +68,7 @@ class Tank
   
   def fire
     if @temperature <= 0
-      @game.add_bullet(x,y,direction, self)
+      @@game.add_bullet(x,y,direction, self)
       @temperature = 5
     end
   end
@@ -89,8 +93,6 @@ class Tank
       when Direction::WEST
         @x -= 1
     end
-    @temperature -= 1
-    self.fire
   end
   
   def hit(bullet)
@@ -101,13 +103,14 @@ class Tank
   end
   
   def destroy_tank
-    @game.tanks.delete(self)
+    @@game.tanks.delete(self)
   end
 end
 
 class TankGame
   attr_reader :width, :height, :board, :tanks
   def initialize(width, height)
+    Tank.set_game self
     @width = width
     @height = height
     @map = Map.new
@@ -124,9 +127,14 @@ class TankGame
     @tick_counter += 1
         @tanks.first.fire
 
-    @tanks.each(&:move) if @tick_counter % 2 == 0
     @bullets.each(&:move)
+    @tanks.each { |tank| tank.temperature -= 1 }
+
     check_collision
+    check_end
+  end
+  def check_end
+    sleep(200) && exit if @tanks.size <= 1
   end
   
   def check_collision
@@ -231,6 +239,7 @@ class TankGame
     @tanks[number].direction = Direction::WEST
   end
   def tank_fire_2
+    @tanks[2].fire
   end
 	
   def move_up_3
@@ -254,6 +263,7 @@ class TankGame
     @tanks[number].direction = Direction::WEST
   end
   def tank_fire_3
+    @tanks[3].fire
   end
   def move_up_4
     number = 0
@@ -276,6 +286,10 @@ class TankGame
     @tanks[number].direction = Direction::WEST
   end
   def tank_fire_4
+    @tanks[0].fire
+  end
+  def tank_fire_1
+    @tanks[1].fire
   end
 	def sleep_time
 	  0.05
