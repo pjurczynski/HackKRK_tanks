@@ -106,28 +106,25 @@ class Tank
   end
 end
 
+
 class TankGame
   attr_reader :width, :height, :board, :tanks
   def initialize(width, height)
-<<<<<<< HEAD
-    #@tanks = []
-    #@tanks << Tank.new(0, 0, Direction::SOUTH)
-    #@tanks << Tank.new(width-1, height-2, Direction::NORTH)
-    #@tanks << Tank.new(0, height-2, Direction::NORTH)
-    #@tanks << Tank.new(width-1, 0, Direction::SOUTH)
-    #@tanks = @tanks[ 0, Configuration::PLAYERS ]
-    @map = Map.new
+    @width, @height = width, height
+    @tanks = []
+    tank_game= self
+
+
+    @map = Map.new(self)
     @map.load_map File.join(File.dirname(__FILE__), "l2.txt")
     @tanks = @map.types['Tank']
-=======
-    @width, @height = width, height
     @tanks = []
     @tanks << Tank.new(self, 0, 0, Direction::SOUTH)
     @tanks << Tank.new(self, width-1, height-2, Direction::NORTH)
     @tanks << Tank.new(self, 0, height-2, Direction::NORTH)
     @tanks << Tank.new(self, width-1, 0, Direction::SOUTH)
     @tanks = @tanks[ 0, Configuration::PLAYERS ]
->>>>>>> 7cbb85662172fba4fce2a06e449c7e42ea235f40
+
     @bullets = []
     @tick_counter = 0
   end
@@ -276,9 +273,7 @@ class TankGame
     def objects
       @objects
     end
-
   end
-
 end
 
 
