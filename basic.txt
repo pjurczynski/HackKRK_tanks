@@ -1,0 +1,80 @@
+P1 lllllll |||||||||                                        P3 lllllll |||||||||
+P2 lllllll |||||||||                                        P4 lllllll |||||||||
+
+################################################################################
+#R      #     #d#         wwwwwwwwwwwwwwwwwwwwwwwwwww               @@@@@d#   R#
+####### # ##  @@@@@       @@@@@@@@@@@@a@a@@@@@@@@@@@@               @@@####    #
+#@@@@@@@#  ###########################################################@@@      #
+##@@a##### #w    w  wwwwww  wwwwww  w    w     w    w  wwwww   w    w#    #    #
+#@@@@      #w    w  w    w  w       w   w      w   w   w    w  w   w #@@@@#@@@@#
+#wwwww@@@@@#w    w  w    w  w       w  w       w  w    w    w  w  w  #@@@@#@@@@#
+#wwwww@@@@@#wwwwww  wwwwww  w       www        www     wwwww   www   #@@@@#@@@@#
+#wwwww####a#w    w  w    w  w       www        www     wwww    www   #@wwwwwwww#
+#wwwww@@@@@#w    w  w    w  w       w  w       w  w    w   w   w  w  #awwwwwwww#
+#wwwww@@@@@#w    w  w    w  w       w   w      w   w   w   w   w   w #@wwwwwwww#
+#@@@@      #w    w  w    w  wwwwww  w    w     w    w  w    w  w    w#@@@@@@@@@#
+#     #    #############################################################@@@@@@@#
+#@@@@@#                        #    @@@@    @@@d#        #@@@@@@d#             #
+#####@@     #    #########          @ww@  #######     ####@###@@@#  ####   #   #
+#@@@@@#######    #@@@          #    awwa                     #####     #   #   #
+#      @@@@      #d@@#     #####    @ww@     #        #  #       ####  #   #   #
+##### #@@@@ #############      #    @ww@  #########   #  ######        #   #####
+#R    #a@@@ #d@@@@@@@@@@            @@@@                         #     #      R#
+################################################################################
+
+otoczenie:
+
+# - mur (szary)
+
+w - woda (niebieski)
+
+@ - ceg³a (czerwony/¿ó³ty)
+
+
+o - maly czolg
+O - duzy czolg
+
+
+bronie:
+
+!
+!
+!
+~~~~~ - laser (ró¿owy)
+!
+!
+!
+
+
+"
+"
+"
+::::: - karabin (bia³y)
+"
+"
+"
+
+.
+.
+.
+.......  - dzia³ko (bia³y)
+.
+.
+.
+
+^
+^
+^
+>>>>>  - rakieta (cyan)
+V
+V
+V
+
+
+
+D - obrona (pole d)
+A - atak   (pole a)
+
+
+
+  
