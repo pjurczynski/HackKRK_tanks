@@ -47,9 +47,8 @@ TEXTURES = { 1 => [ '|', 'o' ], 2 => ['o-'], 3 => [ 'o', '|'], 4 => [ '-o'] }
 class Tank
   attr_accessor :x, :y, :texture, :color, :power, :direction, :energy, :tank_number, :temperature
   
-  def initialize(game, x,y,direction=Direction::NORTH, energy=40, power=1)
+  def initialize(x,y,direction=Direction::NORTH, energy=40, power=1)
     @x, @y = x, y
-    @game = game
     @power, @energy = power, energy
     @@tank_number ||= 0
     @@tank_number += 1
@@ -110,6 +109,7 @@ end
 class TankGame
   attr_reader :width, :height, :board, :tanks
   def initialize(width, height)
+<<<<<<< HEAD
     @width, @height = width, height
     @tanks = []
     tank_game= self
@@ -125,6 +125,13 @@ class TankGame
     @tanks << Tank.new(self, width-1, 0, Direction::SOUTH)
     @tanks = @tanks[ 0, Configuration::PLAYERS ]
 
+=======
+    @width = width
+    @height = height
+    @map = Map.new
+    @map.load_map File.join(File.dirname(__FILE__), "l2.txt")
+    @tanks = @map.types['Tank']
+>>>>>>> 3d6c7cf9941d6e02b6ccdde21910dc32f7bdda9a
     @bullets = []
     @tick_counter = 0
   end
@@ -174,34 +181,121 @@ class TankGame
   
   def input_map
     {
-      ?w => :move_up,
-      ?d => :move_right,
-      ?s => :move_down,
-      ?a => :move_left,
-      ?e => :tank_fire,
+      ?w => :move_up_1,
+      ?d => :move_right_1,
+      ?s => :move_down_1,
+      ?a => :move_left_1,
+      ?e => :tank_fire_1,
+
+      ?t => :move_up_2,
+      ?h => :move_right_2,
+      ?g => :move_down_2,
+      ?f => :move_left_2,
+      ?y => :tank_fire_2,
+
+      ?i => :move_up_3,
+      ?j => :move_right_3,
+      ?k => :move_down_3,
+      ?l => :move_left_3,
+      ?o => :tank_fire_3,
+
+      ?[ => :move_up_4,
+      ?\ => :move_right_4,
+      ?' => :move_down_4,
+      ?; => :move_left_4,
+      ?] => :tank_fire_4,
       ?q => :exit
     }
 	end
 
-  def move_up(number)
+  def move_up_1
+    number = 1
     @tanks[number].y -= 1
     @tanks[number].direction = Direction::NORTH
   end
-  def move_right(number)
+  def move_right_1
+    number = 1
     @tanks[number].x += 1
     @tanks[number].direction = Direction::EAST
   end
-  def move_down(number)
+  def move_down_1
+    number = 1
     @tanks[number].y += 1
     @tanks[number].direction = Direction::SOUTH
   end
-  def move_left(number)
+  def move_left_1
+    number = 1
     @tanks[number].x -= 1
     @tanks[number].direction = Direction::WEST
   end
-  def tank_fire
+
+  def move_up_2
+    number = 2
+    @tanks[number].y -= 1
+    @tanks[number].direction = Direction::NORTH
+  end
+  def move_right_2
+    number = 2
+    @tanks[number].x += 1
+    @tanks[number].direction = Direction::EAST
+  end
+  def move_down_2
+    number = 2
+    @tanks[number].y += 1
+    @tanks[number].direction = Direction::SOUTH
+  end
+  def move_left_2
+    number = 2
+    @tanks[number].x -= 1
+    @tanks[number].direction = Direction::WEST
+  end
+  def tank_fire_2
   end
 	
+  def move_up_3
+    number = 3
+    @tanks[number].y -= 1
+    @tanks[number].direction = Direction::NORTH
+  end
+  def move_right_3
+    number = 3
+    @tanks[number].x += 1
+    @tanks[number].direction = Direction::EAST
+  end
+  def move_down_3
+    number = 3
+    @tanks[number].y += 1
+    @tanks[number].direction = Direction::SOUTH
+  end
+  def move_left_3
+    number = 3
+    @tanks[number].x -= 1
+    @tanks[number].direction = Direction::WEST
+  end
+  def tank_fire_3
+  end
+  def move_up_4
+    number = 0
+    @tanks[number].y -= 1
+    @tanks[number].direction = Direction::NORTH
+  end
+  def move_right_4
+    number = 0
+    @tanks[number].x += 1
+    @tanks[number].direction = Direction::EAST
+  end
+  def move_down_4
+    number = 0
+    @tanks[number].y += 1
+    @tanks[number].direction = Direction::SOUTH
+  end
+  def move_left_4
+    number = 0
+    @tanks[number].x -= 1
+    @tanks[number].direction = Direction::WEST
+  end
+  def tank_fire_4
+  end
 	def sleep_time
 	  0.05
 	end
