@@ -99,21 +99,21 @@ class TankGame
     }
 	end
 
-  def move_up
-    @tanks.first.y -= 1
-    @tanks.first.direction = Direction::NORTH
+  def move_up(number)
+    @tanks[number].y -= 1
+    @tanks[number].direction = Direction::NORTH
   end
-  def move_right
-    @tanks.first.x += 1
-    @tanks.first.direction = Direction::EAST
+  def move_right(number)
+    @tanks[number].x += 1
+    @tanks[number].direction = Direction::EAST
   end
-  def move_down
-    @tanks.first.y += 1
-    @tanks.first.direction = Direction::SOUTH
+  def move_down(number)
+    @tanks[number].y += 1
+    @tanks[number].direction = Direction::SOUTH
   end
-  def move_left
-    @tanks.first.x -= 1
-    @tanks.first.direction = Direction::WEST
+  def move_left(number)
+    @tanks[number].x -= 1
+    @tanks[number].direction = Direction::WEST
   end
   def tank_fire
   end
