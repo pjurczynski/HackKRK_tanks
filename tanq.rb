@@ -16,10 +16,26 @@ class Direction
 end
 
 class Bullet
+  attr_accessor :x, :y, :texture, :color, :direction, :power
 	def initialize(x,y,direction,power=1)
     @x, @y = x, y
     @power = power
     @direction = direction
+    @color = Curses::COLOR_RED
+    @texture = [ '*' ]
+  end
+  
+  def move
+    case @direction
+      when Direction::NORTH
+        @y -= 1
+      when Direction::EAST
+        @x += 1
+      when Direction::SOUTH
+        @y += 1
+      when Direction::WEST
+        @x -= 1
+    end
   end
 end
 
@@ -31,8 +47,9 @@ class Tank
   attr_accessor :x, :y, :texture, :color, :power, :direction, :energy, :tank_number
   
   
-  def initialize(x,y,direction=Direction::NORTH, energy=40, power=1)
+  def initialize(game, x,y,direction=Direction::NORTH, energy=40, power=1)
     @x, @y = x, y
+    @game = game
     @power, @energy = power, energy
     @@tank_number ||= 0
     @@tank_number += 1
@@ -42,7 +59,7 @@ class Tank
   end
   
   def fire
-  
+    @game.add_bullet(x,y,direction)
   end
   
   def pixels
@@ -53,18 +70,34 @@ class Tank
   def texture
     TEXTURES[self.direction]
   end
+  
+  def move
+    case @direction
+      when Direction::NORTH
+        @y -= 1
+      when Direction::EAST
+        @x += 1
+      when Direction::SOUTH
+        @y += 1
+      when Direction::WEST
+        @x -= 1
+    end
+  end
 end
 
 class TankGame
-  attr_reader :width, :height
+  attr_reader :width, :height, :board
   def initialize(width, height)
+    @width, @height = width, height
     @tanks = []
-    @tanks << Tank.new(0, 0, Direction::SOUTH)
-    @tanks << Tank.new(width-1, height-2, Direction::NORTH)
-    @tanks << Tank.new(0, height-2, Direction::NORTH)
-    @tanks << Tank.new(width-1, 0, Direction::SOUTH)
+    @tanks << Tank.new(self, 0, 0, Direction::SOUTH)
+    @tanks << Tank.new(self, width-1, height-2, Direction::NORTH)
+    @tanks << Tank.new(self, 0, height-2, Direction::NORTH)
+    @tanks << Tank.new(self, width-1, 0, Direction::SOUTH)
     @tanks = @tanks[ 0, Configuration::PLAYERS ]
     @bullets = []
+    
+    @bullets << Bullet.new(0, 10, Direction::SOUTH)
   end
 
 
@@ -72,8 +105,27 @@ class TankGame
   end
   
   def tick
+    @tanks.each(&:move)
+    @bullets.each(&:move)
+    check_collision
   end
   
+  def check_collision
+    @board = []
+    @width.times do |w|
+      @board << Array.new(@height, nil)
+    end
+    @tanks.each { |tank|
+      @board[tank.x][tank.y] = tank
+    }
+    @bullets.each do |bullet|
+      if tank = @board[bullet.x][bullet.y]
+        tank.energy -= bullet.power
+        @bullets.delete(bullet)
+      end
+    end
+    
+  end
   def objects
     @tanks + @bullets
   end
@@ -82,7 +134,7 @@ class TankGame
   end
   
   def textbox_content
-    "Player1: %s\t\tPlayer1: %s\t\tPlayer1: %s\t\tPlayer1: %s\t\t" % @tanks.map(&:energy)
+    "Player1: %s\t\tPlayer2: %s\t\tPlayer3: %s\t\tPlayer4: %s\t\t" % @tanks.map(&:energy)
   end
   
   def wait?
@@ -93,7 +145,12 @@ class TankGame
 	end
 	
 	def sleep_time
-	  1
+	  0.1
+	end
+	
+	def add_bullet(x,y,direction)
+	  b = Bullet.new(x,y,direction)
+	  @bullets << b
 	end
 end
 
