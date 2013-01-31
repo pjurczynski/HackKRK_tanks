@@ -2,28 +2,28 @@ P1 lllllll |||||||||                                        P3 lllllll |||||||||
 P2 lllllll |||||||||                                        P4 lllllll |||||||||
 
 ################################################################################
-#R                                                                            R#
+#R                     @@@@@@@                    @@@@@@@                     R#
 ########### ############################# ##################### ################
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
+#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
+#wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
+#wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#    
+#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
 ########### ############################# ##################### ################
-#                                                                              #
+#                     @@@@@@@                     @@@@@@@                      #
 ########### ############################# ##################### ################
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
+#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
+#wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
+#wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
+#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
 ########### ############################# ##################### ################
-#                                                                              #
+#                    @@@@@@@@                      @@@@@@@                     #
 ########### ############################# ##################### ################
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
-#         # #                           # #                   # #              #
+#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
+#wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
+#wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
+#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
 ########### ############################# ##################### ################
-#R                                                                            R#
+#R                   @@@@@@@                   @@@@@@@                        R#
 ################################################################################
 
 
