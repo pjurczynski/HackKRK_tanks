@@ -9,11 +9,39 @@ class Tanks
     end
   end
 
+  class Brick < Item
+    def char
+      '@'
+    end
+    
+    def blocking?
+      true
+    end
+    
+    def color
+      Curses::COLOR_RED
+    end   
+  end
+
   class Wall < Item
     def char
       '#'
     end
 
+    def blocking?
+      true
+    end
+       
+    def color
+      Curses::COLOR_GREEN
+    end
+  end
+
+  class Water < Item
+    def char
+      'w'  
+    end
+    
     def blocking?
       true
     end
@@ -82,7 +110,9 @@ class Tanks
 
     OBJECT_MAPPING = {
       '#' => Wall,
-      "R" => Tank
+      "R" => Tank,
+      "w" => Water,
+      "@" => Brick
     }
 
     def get(x, y)

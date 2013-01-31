@@ -17,8 +17,8 @@ class Direction
 end
 
 class Bullet
-  attr_accessor :x, :y, :texture, :color, :direction, :power
-	def initialize(x,y,direction,power=1)
+  attr_accessor :x, :y, :texture, :color, :direction, :power, :tank
+	def initialize(x,y,direction,tank,power=1)
     @x, @y = x, y
     @power = power
     @direction = direction
@@ -45,7 +45,7 @@ TEXTURES = { 1 => [ '|', 'o' ], 2 => ['o-'], 3 => [ 'o', '|'], 4 => [ '-o'] }
 
 
 class Tank
-  attr_accessor :x, :y, :texture, :color, :power, :direction, :energy, :tank_number
+  attr_accessor :x, :y, :texture, :color, :power, :direction, :energy, :tank_number, :temperature
   
   def initialize(x,y,direction=Direction::NORTH, energy=40, power=1)
     @x, @y = x, y
@@ -54,6 +54,7 @@ class Tank
     @@tank_number += 1
     @tank_number = @@tank_number
     @direction = direction
+    @temperature = 5
     @color = Configuration::COLORS[@tank_number-1]
   end
 
@@ -62,7 +63,10 @@ class Tank
   end
   
   def fire
-    @game.add_bullet(x,y,direction)
+    if @temperature <= 0
+      @game.add_bullet(x,y,direction, self)
+      @temperature = 5
+    end
   end
   
   def pixels
@@ -85,11 +89,24 @@ class Tank
       when Direction::WEST
         @x -= 1
     end
+    @temperature -= 1
+    self.fire
+  end
+  
+  def hit(bullet)
+    self.energy -= bullet.power
+    if self.energy <= 0
+      self.destroy_tank
+    end
+  end
+  
+  def destroy_tank
+    @game.tanks.delete(self)
   end
 end
 
 class TankGame
-  attr_reader :width, :height, :board
+  attr_reader :width, :height, :board, :tanks
   def initialize(width, height)
     @width = width
     @height = height
@@ -97,12 +114,17 @@ class TankGame
     @map.load_map File.join(File.dirname(__FILE__), "l2.txt")
     @tanks = @map.types['Tank']
     @bullets = []
+    @tick_counter = 0
   end
 
   def exit_message
   end
   
   def tick
+    @tick_counter += 1
+        @tanks.first.fire
+
+    @tanks.each(&:move) if @tick_counter % 2 == 0
     @bullets.each(&:move)
     check_collision
   end
@@ -116,12 +138,12 @@ class TankGame
       @board[tank.x][tank.y] = tank
     }
     @bullets.each do |bullet|
-      if tank = @board[bullet.x][bullet.y]
-        tank.energy -= bullet.power
+      if @board[bullet.x][bullet.y] && bullet.tank != @board[bullet.x][bullet.y]
+        tank = @board[bullet.x][bullet.y]
+        tank.hit(bullet)
         @bullets.delete(bullet)
       end
     end
-    
   end
   def objects
     @map.objects + @bullets
@@ -131,7 +153,7 @@ class TankGame
   end
   
   def textbox_content
-    "Player1: %s\t\tPlayer2: %s\t\tPlayer3: %s\t\tPlayer4: %s\t\t" % @tanks.map(&:energy)
+    @tanks.map { |tank, inx| "Player#{inx}: #{tank.energy}" }.join("\t\t") 
   end
   
   def wait?
@@ -256,11 +278,11 @@ class TankGame
   def tank_fire_4
   end
 	def sleep_time
-	  0.1
+	  0.05
 	end
 	
-	def add_bullet(x,y,direction)
-	  b = Bullet.new(x,y,direction)
+	def add_bullet(x,y,direction, tank)
+	  b = Bullet.new(x,y,direction, tank)
 	  @bullets << b
 	end
 
