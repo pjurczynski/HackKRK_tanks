@@ -6,33 +6,39 @@ require "gaminator"
 
 class Configuration
   PLAYERS = 4
-  COLORS = [ Curses::COLOR_RED, Curses::COLOR_BLUE, Curses::COLOR_GREEN, Curses::COLOR_CYAN ]
+  COLORS = [ Curses::COLOR_RED, Curses::COLOR_YELLOW, Curses::COLOR_GREEN, Curses::COLOR_CYAN ]
 end
 class Direction
   NORTH = 1
   EAST = 2
-  NORTH = 3
+  SOUTH = 3
   WEST = 4
 end
 
 class Bullet
-	def initialize(x,y,power=1)
+	def initialize(x,y,direction,power=1)
     @x, @y = x, y
     @power = power
+    @direction = direction
   end
 end
 
+TEXTURES = { 1 => [ '|', 'o' ], 2 => ['o' ,'-'], 3 => [ 'o', '|'], 4 => [ '-', 'o'] }
+
+
+
 class Tank
-  attr_accessor :x, :y, :texture, :color, :power, :direction, :energy
+  attr_accessor :x, :y, :texture, :color, :power, :direction, :energy, :tank_number
   
-  def initialize(x,y,energy=40, power=1)
+  
+  def initialize(x,y,direction=Direction::NORTH, energy=40, power=1)
     @x, @y = x, y
     @power, @energy = power, energy
     @@tank_number ||= 0
     @@tank_number += 1
-    @direction = @@tank_number % 4 + 1
-    @texture = [ 'o', '|' ]
-    @color = Configuration::COLORS[@@tank_number % 4 + 1]
+    @tank_number = @@tank_number
+    @direction = direction
+    @color = Configuration::COLORS[@tank_number-1]
   end
   
   def fire
@@ -43,12 +49,22 @@ class Tank
     Set.new(self.texture.map.with_index{|r,ri|
       r.each_char.map.with_index{|c,ci| [@x+ci,@y+ri]}}.flatten(1))
   end
+  
+  def texture
+    TEXTURES[self.direction]
+  end
 end
 
 class TankGame
   attr_reader :width, :height
   def initialize(width, height)
-    @tanks = [ Tank.new(0, 0) ]
+    @tanks = []
+    @tanks << Tank.new(0, 0, Direction::SOUTH)
+    @tanks << Tank.new(width-1, height-2, Direction::NORTH)
+    @tanks << Tank.new(0, height-2, Direction::NORTH)
+    @tanks << Tank.new(width-1, 0, Direction::SOUTH)
+    @tanks = @tanks[ 0, Configuration::PLAYERS ]
+    @bullets = []
   end
 
 
@@ -59,14 +75,14 @@ class TankGame
   end
   
   def objects
-    @tanks
+    @tanks + @bullets
   end
   
   def each
   end
   
   def textbox_content
-    'x' * 160
+    "Player1: %s\t\tPlayer1: %s\t\tPlayer1: %s\t\tPlayer1: %s\t\t" % @tanks.map(&:energy)
   end
   
   def wait?
