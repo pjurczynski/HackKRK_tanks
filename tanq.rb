@@ -23,13 +23,12 @@ class Bullet
   end
 end
 
-TEXTURES = { 1 => [ '|', 'o' ], 2 => ['o' ,'-'], 3 => [ 'o', '|'], 4 => [ '-', 'o'] }
+TEXTURES = { 1 => [ '|', 'o' ], 2 => ['o-'], 3 => [ 'o', '|'], 4 => [ '-o'] }
 
 
 
 class Tank
   attr_accessor :x, :y, :texture, :color, :power, :direction, :energy, :tank_number
-  
   
   def initialize(x,y,direction=Direction::NORTH, energy=40, power=1)
     @x, @y = x, y
@@ -86,14 +85,41 @@ class TankGame
   end
   
   def wait?
+    false
   end
   
   def input_map
-    {}
+    {
+      ?w => :move_up,
+      ?d => :move_right,
+      ?s => :move_down,
+      ?a => :move_left,
+      ?e => :tank_fire,
+      ?q => :exit
+    }
 	end
+
+  def move_up
+    @tanks.first.y -= 1
+    @tanks.first.direction = Direction::NORTH
+  end
+  def move_right
+    @tanks.first.x += 1
+    @tanks.first.direction = Direction::EAST
+  end
+  def move_down
+    @tanks.first.y += 1
+    @tanks.first.direction = Direction::SOUTH
+  end
+  def move_left
+    @tanks.first.x -= 1
+    @tanks.first.direction = Direction::WEST
+  end
+  def tank_fire
+  end
 	
 	def sleep_time
-	  1
+    0.05
 	end
 end
 
