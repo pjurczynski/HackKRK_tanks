@@ -2,9 +2,9 @@ P1 lllllll |||||||||                                        P3 lllllll |||||||||
 P2 lllllll |||||||||                                        P4 lllllll |||||||||
 
 ################################################################################
-#R                     @@@@@@@                    @@@@@@@                     R#
-########### ############################# ##################### ################
-#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
+#                      @@@@@@@                    @@@@@@@                      #
+# R ####### ############################# ##################### ############ R #
+#   wwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwww   #
 #wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
 #wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#    
 #wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
@@ -21,9 +21,9 @@ P2 lllllll |||||||||                                        P4 lllllll |||||||||
 #wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
 #wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
 #wwwwwwwww#@#wwwwwwwwwwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwwwwwwww#@#wwwwwwwwwwwwww#
-#wwwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwww#
-########### ############################# ##################### ################
-#R                   @@@@@@@                   @@@@@@@                        R#
+#   wwwwwwww# #wwwwwwwwwwwwwwwwwwwwwwwww# #wwwwwwwwwwwwwwwwwww# #wwwwwwwwwww   #
+# R ######### ########################### ##################### ############ R #
+#                      @@@@@@@                 @@@@@@@                         #
 ################################################################################
 
 
